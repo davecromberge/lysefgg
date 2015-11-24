@@ -13,7 +13,9 @@ third([_,_,T | _]) -> T.
 fourth([_,_,_,F | _]) -> F.
 
 greeting(male, Name) ->
-  io:format("Hello mr ~s", [Name]); %% the semi colon denotes a function fragment
+  %% the ~ separates tokens in the format function call, and s accepts
+  %% string and bitstrings as arguments.
+  io:format("Hello mr ~s", [Name]); %% the semi colon denotes a function clause
 greeting(female, Name) ->
   io:format("Hello mrs ~s", [Name]); %% this is a comment
 greeting(_, Name) ->
@@ -25,7 +27,7 @@ same(X,X) ->
 same(_,_) ->
   false.
 
-%% this is similar to Haskell's "at matches", because you can store the original 
+%% this is similar to Haskell's "as patterns", because you can store the original
 %% binding before destructuring it using equality
 valid_time({{D,M,Y} = Date, {H,Min,S} = Time}) ->
   io:format("The date tuple (~p) today is: ~p/~p/~p~n", [Date, D, M, Y]),
@@ -38,7 +40,8 @@ valid_time(_) ->
 old_enough(X) when X >= 16 -> true;
 old_enough(_) -> false.
 
-%% in guards, the comma serves the same purpose as andalso 
+%% in guards, the comma serves the same purpose as andalso
 %% in guards, the semi-colon serves the same purpose as orelse (either one guard succeeds or they%%            all fail)
+%% guards also catch errors, unlike andalso / orelse
 right_age(X) when X >= 16, X =< 104 -> true;
 right_age(_) -> false.

@@ -1,6 +1,9 @@
 -module(what_the_if).
 -export([heh_fine/0, oh_gosh/1, help_me/1, insert/2, beach/1]).
 
+%% If statements share guard's syntax, but operate outside of a function
+%% clause's head.
+
 %% should check if this actually works (hint: an error will be thrown)
 %% ; or orelse is equivalent to short circuit or
 %% , or andalso is equivalent to short circuit and
@@ -11,7 +14,7 @@ heh_fine() ->
     if 1 =:= 2; 1 =:= 1 ->
         works
     end,
-    if 1 =:= 2, 1 =:= 1 ->
+    if 1 =:= 2, 1 =:= 1 ->  %% we have a warning here that this is inexhaustive
         fails
     end.
 
@@ -45,9 +48,9 @@ beach(Temperature) ->
     case Temperature of 
         {celcius, N} when N >= 20, N =< 45 -> 
             'favourable'; %% these are not strings but atoms with spaces
-        {fahrenheit, N} when N >= 293, N =< 318 ->
+        {kelvin, N} when N >= 293, N =< 318 ->
             'scientifically favourable';
-        {kelvin, N} when N >= 68, N =< 113 ->
+        {fahrenheit, N} when N >= 68, N =< 113 ->
             'favourable in the US';
         _ -> 
             'avoid beach'
